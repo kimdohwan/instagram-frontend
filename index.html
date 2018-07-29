@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <!-- axios -->
+  <script src="js/axios.js"></script>
+  <script src="js/jquery.js"></script>
+</head>
+<body>
+  <div class="container mt-2">
+    <h1>Instagram</h1>
+
+    <div class="content">
+      <div class="card mb-3">
+        <div class="card-header"></div>
+        <div class="card-body p-0"></div>
+        <div class="card-body p-2">hello world</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    axios.get('http://localhost:8000/api/posts/')
+      .then(function (response) {
+        for (var i = 0; i < response.data.length; i++) {
+          var curPost = response.data[i];
+          console.log(curPost);
+          var curElement = '<div class="card mb-3">';
+          curElement    += '  <div class="card-header">' + curPost.author.username + '</div>';
+          curElement    += '  <div class="card-body p-0">';
+          curElement    += '    <img src="' + curPost.photo + '" width="100%">';
+          curElement    += '  </div>';
+          curElement    += '  <div class="card-body p-2">' + curPost.content + '</div>'
+          curElement    += '  <div class="card-body p-4">' +
+          '댓글: ' +
+          curPost.post_comments +
+          '  </div>';
+          curElement    += '</div>';
+
+          // // =========================================================
+          // // 이부분 중첩 for문좀 도와주세요 흑흑흑 ㅠㅠㅠ
+          // curElement    += '<div class="card-body p-4">' + 'comment:' +
+          //   for (var i = 0; i < curPost.post_comments.length; i++) {
+          //     var curComment = curPost.post_comments[i];
+          //     $('.content').append(curComment);
+          //   }
+          //   + '</div>';
+          //   // ========================================================
+
+
+          console.log(curPost.photo)
+          $('.content').append(curElement);
+        };
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
+</body>
+</html>
